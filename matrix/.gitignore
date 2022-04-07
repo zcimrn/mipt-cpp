@@ -1,0 +1,7 @@
+*
+!.gitignore
+!readme.md
+!matrix.h
+!matrix.cpp
+!matrix_public_test.cpp
+!Makefile
