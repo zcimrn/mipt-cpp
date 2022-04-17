@@ -87,4 +87,36 @@ class Array {
   }
 };
 
+#define ARRAY_TRAITS_IMPLEMENTED
+
+template <class T>
+size_t GetSize(const T&) {
+  return 0;
+}
+
+template <class T, size_t N>
+size_t GetSize(const T (&)[N]) {
+  return N;
+}
+
+template <class T>
+size_t GetRank(const T&) {
+  return 0;
+}
+
+template <class T, size_t N>
+size_t GetRank(const T (&t)[N]) {
+  return GetRank(t[0]) + 1;
+}
+
+template <class T>
+size_t GetNumElements(const T&) {
+  return 1;
+}
+
+template <class T, size_t N>
+size_t GetNumElements(const T (&t)[N]) {
+  return GetNumElements(t[0]) * N;
+}
+
 #endif
