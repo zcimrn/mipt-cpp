@@ -65,39 +65,39 @@ Rational Rational::operator-() const {
   return Rational(-numerator_, denominator_);
 }
 
-Rational Rational::operator+(const Rational other) const {
-  return Rational(numerator_ * other.denominator_ + other.numerator_ * denominator_, denominator_ * other.denominator_);
+Rational operator+(const Rational a, const Rational b) {
+  return Rational(a.numerator_ * b.denominator_ + b.numerator_ * a.denominator_, a.denominator_ * b.denominator_);
 }
 
-Rational Rational::operator-(const Rational other) const {
-  return Rational(numerator_ * other.denominator_ - other.numerator_ * denominator_, denominator_ * other.denominator_);
+Rational operator-(const Rational a, const Rational b) {
+  return Rational(a.numerator_ * b.denominator_ - b.numerator_ * a.denominator_, a.denominator_ * b.denominator_);
 }
 
-Rational Rational::operator*(const Rational other) const {
-  return Rational(numerator_ * other.numerator_, denominator_ * other.denominator_);
+Rational operator*(const Rational a, const Rational b) {
+  return Rational(a.numerator_ * b.numerator_, a.denominator_ * b.denominator_);
 }
 
-Rational Rational::operator/(const Rational other) const {
-  return Rational(numerator_ * other.denominator_, denominator_ * other.numerator_);
+Rational operator/(const Rational a, const Rational b) {
+  return Rational(a.numerator_ * b.denominator_, a.denominator_ * b.numerator_);
 }
 
-Rational Rational::operator+=(const Rational other) {
+Rational& Rational::operator+=(const Rational other) {
   return *this = *this + other;
 }
 
-Rational Rational::operator-=(const Rational other) {
+Rational& Rational::operator-=(const Rational other) {
   return *this = *this - other;
 }
 
-Rational Rational::operator*=(const Rational other) {
+Rational& Rational::operator*=(const Rational other) {
   return *this = *this * other;
 }
 
-Rational Rational::operator/=(const Rational other) {
+Rational& Rational::operator/=(const Rational other) {
   return *this = *this / other;
 }
 
-Rational Rational::operator++() {
+Rational& Rational::operator++() {
   return *this += 1;
 }
 
@@ -107,7 +107,7 @@ Rational Rational::operator++(int) {
   return result;
 }
 
-Rational Rational::operator--() {
+Rational& Rational::operator--() {
   return *this -= 1;
 }
 
@@ -141,7 +141,7 @@ bool operator>=(const Rational a, const Rational b) {
   return a.numerator_ * b.denominator_ >= b.numerator_ * a.denominator_;
 }
 
-std::istream &operator>>(std::istream &in, Rational &rational) {
+std::istream& operator>>(std::istream& in, Rational& rational) {
   std::string input;
   in >> input;
   size_t cursor = 0;
@@ -155,10 +155,10 @@ std::istream &operator>>(std::istream &in, Rational &rational) {
   return in;
 }
 
-std::ostream &operator<<(std::ostream &out, const Rational rational) {
+std::ostream& operator<<(std::ostream& out, const Rational rational) {
+  out << rational.numerator_;
   if (rational.denominator_ > 1) {
-    return out << rational.numerator_ << '/' << rational.denominator_;
-  } else {
-    return out << rational.numerator_;
+    out << '/' << rational.denominator_;
   }
+  return out;
 }

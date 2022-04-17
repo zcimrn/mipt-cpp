@@ -30,19 +30,19 @@ class Rational {
   Rational operator+() const;
   Rational operator-() const;
 
-  Rational operator+(const Rational other) const;
-  Rational operator-(const Rational other) const;
-  Rational operator*(const Rational other) const;
-  Rational operator/(const Rational other) const;
+  friend Rational operator+(const Rational a, const Rational b);
+  friend Rational operator-(const Rational a, const Rational b);
+  friend Rational operator*(const Rational a, const Rational b);
+  friend Rational operator/(const Rational a, const Rational b);
 
-  Rational operator+=(const Rational other);
-  Rational operator-=(const Rational other);
-  Rational operator*=(const Rational other);
-  Rational operator/=(const Rational other);
+  Rational& operator+=(const Rational other);
+  Rational& operator-=(const Rational other);
+  Rational& operator*=(const Rational other);
+  Rational& operator/=(const Rational other);
 
-  Rational operator++();
+  Rational& operator++();
   Rational operator++(int);
-  Rational operator--();
+  Rational& operator--();
   Rational operator--(int);
 
   friend bool operator<(const Rational a, const Rational b);
@@ -52,8 +52,8 @@ class Rational {
   friend bool operator<=(const Rational a, const Rational b);
   friend bool operator>=(const Rational a, const Rational b);
 
-  friend std::istream &operator>>(std::istream &in, Rational &rational);
-  friend std::ostream &operator<<(std::ostream &out, const Rational rational);
+  friend std::istream& operator>>(std::istream& in, Rational& rational);
+  friend std::ostream& operator<<(std::ostream& out, const Rational rational);
 };
 
 #endif
