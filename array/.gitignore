@@ -2,6 +2,5 @@
 !.gitignore
 !readme.md
 !array.h
-!array.cpp
 !array_public_test.cpp
 !Makefile
