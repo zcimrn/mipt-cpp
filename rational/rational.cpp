@@ -1,12 +1,7 @@
 #include "rational.h"
+
 #include <iostream>
 #include <numeric>
-
-void Rational::Reduce() {
-  int64_t factor = std::gcd(numerator_, denominator_);
-  numerator_ /= factor;
-  denominator_ /= factor;
-}
 
 Rational::Rational() {
   numerator_ = 0;
@@ -65,35 +60,37 @@ Rational Rational::operator-() const {
   return Rational(-numerator_, denominator_);
 }
 
-Rational operator+(const Rational a, const Rational b) {
-  return Rational(a.numerator_ * b.denominator_ + b.numerator_ * a.denominator_, a.denominator_ * b.denominator_);
+Rational operator+(const Rational& left, const Rational& right) {
+  return Rational(left.numerator_ * right.denominator_ + right.numerator_ * left.denominator_,
+                  left.denominator_ * right.denominator_);
 }
 
-Rational operator-(const Rational a, const Rational b) {
-  return Rational(a.numerator_ * b.denominator_ - b.numerator_ * a.denominator_, a.denominator_ * b.denominator_);
+Rational operator-(const Rational& left, const Rational& right) {
+  return Rational(left.numerator_ * right.denominator_ - right.numerator_ * left.denominator_,
+                  left.denominator_ * right.denominator_);
 }
 
-Rational operator*(const Rational a, const Rational b) {
-  return Rational(a.numerator_ * b.numerator_, a.denominator_ * b.denominator_);
+Rational operator*(const Rational& left, const Rational& right) {
+  return Rational(left.numerator_ * right.numerator_, left.denominator_ * right.denominator_);
 }
 
-Rational operator/(const Rational a, const Rational b) {
-  return Rational(a.numerator_ * b.denominator_, a.denominator_ * b.numerator_);
+Rational operator/(const Rational& left, const Rational& right) {
+  return Rational(left.numerator_ * right.denominator_, left.denominator_ * right.numerator_);
 }
 
-Rational& Rational::operator+=(const Rational other) {
+Rational& Rational::operator+=(const Rational& other) {
   return *this = *this + other;
 }
 
-Rational& Rational::operator-=(const Rational other) {
+Rational& Rational::operator-=(const Rational& other) {
   return *this = *this - other;
 }
 
-Rational& Rational::operator*=(const Rational other) {
+Rational& Rational::operator*=(const Rational& other) {
   return *this = *this * other;
 }
 
-Rational& Rational::operator/=(const Rational other) {
+Rational& Rational::operator/=(const Rational& other) {
   return *this = *this / other;
 }
 
@@ -117,28 +114,28 @@ Rational Rational::operator--(int) {
   return result;
 }
 
-bool operator<(const Rational a, const Rational b) {
-  return a.numerator_ * b.denominator_ < b.numerator_ * a.denominator_;
+bool operator<(const Rational& left, const Rational& right) {
+  return left.numerator_ * right.denominator_ < right.numerator_ * left.denominator_;
 }
 
-bool operator>(const Rational a, const Rational b) {
-  return a.numerator_ * b.denominator_ > b.numerator_ * a.denominator_;
+bool operator>(const Rational& left, const Rational& right) {
+  return left.numerator_ * right.denominator_ > right.numerator_ * left.denominator_;
 }
 
-bool operator==(const Rational a, const Rational b) {
-  return a.numerator_ * b.denominator_ == b.numerator_ * a.denominator_;
+bool operator==(const Rational& left, const Rational& right) {
+  return left.numerator_ * right.denominator_ == right.numerator_ * left.denominator_;
 }
 
-bool operator!=(const Rational a, const Rational b) {
-  return a.numerator_ * b.denominator_ != b.numerator_ * a.denominator_;
+bool operator!=(const Rational& left, const Rational& right) {
+  return left.numerator_ * right.denominator_ != right.numerator_ * left.denominator_;
 }
 
-bool operator<=(const Rational a, const Rational b) {
-  return a.numerator_ * b.denominator_ <= b.numerator_ * a.denominator_;
+bool operator<=(const Rational& left, const Rational& right) {
+  return left.numerator_ * right.denominator_ <= right.numerator_ * left.denominator_;
 }
 
-bool operator>=(const Rational a, const Rational b) {
-  return a.numerator_ * b.denominator_ >= b.numerator_ * a.denominator_;
+bool operator>=(const Rational& left, const Rational& right) {
+  return left.numerator_ * right.denominator_ >= right.numerator_ * left.denominator_;
 }
 
 std::istream& operator>>(std::istream& in, Rational& rational) {
@@ -161,4 +158,10 @@ std::ostream& operator<<(std::ostream& out, const Rational rational) {
     out << '/' << rational.denominator_;
   }
   return out;
+}
+
+void Rational::Reduce() {
+  int64_t factor = std::gcd(numerator_, denominator_);
+  numerator_ /= factor;
+  denominator_ /= factor;
 }

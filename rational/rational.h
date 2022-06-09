@@ -11,11 +11,6 @@ class RationalDivisionByZero : public std::runtime_error {
 };
 
 class Rational {
- private:
-  int64_t numerator_, denominator_;
-
-  void Reduce();
-
  public:
   Rational();
   Rational(int64_t new_numerator);  // NOLINT
@@ -30,30 +25,35 @@ class Rational {
   Rational operator+() const;
   Rational operator-() const;
 
-  friend Rational operator+(const Rational a, const Rational b);
-  friend Rational operator-(const Rational a, const Rational b);
-  friend Rational operator*(const Rational a, const Rational b);
-  friend Rational operator/(const Rational a, const Rational b);
+  friend Rational operator+(const Rational& left, const Rational& right);
+  friend Rational operator-(const Rational& left, const Rational& right);
+  friend Rational operator*(const Rational& left, const Rational& right);
+  friend Rational operator/(const Rational& left, const Rational& right);
 
-  Rational& operator+=(const Rational other);
-  Rational& operator-=(const Rational other);
-  Rational& operator*=(const Rational other);
-  Rational& operator/=(const Rational other);
+  Rational& operator+=(const Rational& other);
+  Rational& operator-=(const Rational& other);
+  Rational& operator*=(const Rational& other);
+  Rational& operator/=(const Rational& other);
 
   Rational& operator++();
   Rational operator++(int);
   Rational& operator--();
   Rational operator--(int);
 
-  friend bool operator<(const Rational a, const Rational b);
-  friend bool operator>(const Rational a, const Rational b);
-  friend bool operator==(const Rational a, const Rational b);
-  friend bool operator!=(const Rational a, const Rational b);
-  friend bool operator<=(const Rational a, const Rational b);
-  friend bool operator>=(const Rational a, const Rational b);
+  friend bool operator<(const Rational& left, const Rational& right);
+  friend bool operator>(const Rational& left, const Rational& right);
+  friend bool operator==(const Rational& left, const Rational& right);
+  friend bool operator!=(const Rational& left, const Rational& right);
+  friend bool operator<=(const Rational& left, const Rational& right);
+  friend bool operator>=(const Rational& left, const Rational& right);
 
   friend std::istream& operator>>(std::istream& in, Rational& rational);
   friend std::ostream& operator<<(std::ostream& out, const Rational rational);
+
+ private:
+  int64_t numerator_, denominator_;
+
+  void Reduce();
 };
 
 #endif
