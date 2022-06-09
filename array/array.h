@@ -12,60 +12,60 @@ class ArrayOutOfRange : public std::out_of_range {
 template <class T, size_t N>
 class Array {
  public:
-  T array[N];
+  T buffer[N];
 
   T& operator[](size_t index) {
-    return array[index];
+    return buffer[index];
   }
 
   const T& operator[](size_t index) const {
-    return array[index];
+    return buffer[index];
   }
 
   T& At(size_t index) {
     if (index < 0 || index >= N) {
       throw ArrayOutOfRange{};
     }
-    return array[index];
+    return buffer[index];
   }
 
   const T& At(size_t index) const {
     if (index < 0 || index >= N) {
       throw ArrayOutOfRange{};
     }
-    return array[index];
+    return buffer[index];
   }
 
   T& Front() {
     if (N == 0) {
       throw ArrayOutOfRange{};
     }
-    return array[0];
+    return buffer[0];
   }
 
   const T& Front() const {
     if (N == 0) {
       throw ArrayOutOfRange{};
     }
-    return array[0];
+    return buffer[0];
   }
 
   T& Back() {
     if (N == 0) {
       throw ArrayOutOfRange{};
     }
-    return array[N - 1];
+    return buffer[N - 1];
   }
 
   const T& Back() const {
     if (N == 0) {
       throw ArrayOutOfRange{};
     }
-    return array[N - 1];
+    return buffer[N - 1];
   }
 
   const T* Data() const {
-    return array;
+    return buffer;
   }
 
   size_t Size() const {
@@ -78,12 +78,12 @@ class Array {
 
   void Fill(const T& value) {
     for (size_t i = 0; i < N; i++) {
-      array[i] = value;
+      buffer[i] = value;
     }
   }
 
   void Swap(Array<T, N>& other) {
-    std::swap(array, other.array);
+    std::swap(buffer, other.buffer);
   }
 };
 
@@ -105,8 +105,8 @@ size_t GetRank(const T&) {
 }
 
 template <class T, size_t N>
-size_t GetRank(const T (&t)[N]) {
-  return GetRank(t[0]) + 1;
+size_t GetRank(const T (&array)[N]) {
+  return GetRank(array[0]) + 1;
 }
 
 template <class T>
@@ -115,8 +115,8 @@ size_t GetNumElements(const T&) {
 }
 
 template <class T, size_t N>
-size_t GetNumElements(const T (&t)[N]) {
-  return GetNumElements(t[0]) * N;
+size_t GetNumElements(const T (&array)[N]) {
+  return GetNumElements(array[0]) * N;
 }
 
 #endif
