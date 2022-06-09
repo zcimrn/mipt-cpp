@@ -3,14 +3,10 @@
 #include <iostream>
 #include <numeric>
 
-Rational::Rational() {
-  numerator_ = 0;
-  denominator_ = 1;
+Rational::Rational() : numerator_{0}, denominator_{1} {
 }
 
-Rational::Rational(int64_t new_numerator) {
-  numerator_ = new_numerator;
-  denominator_ = 1;
+Rational::Rational(int64_t new_numerator) : numerator_{new_numerator}, denominator_{1} {
 }
 
 Rational::Rational(int64_t new_numerator, int64_t new_denominator) {
@@ -141,10 +137,8 @@ bool operator>=(const Rational& left, const Rational& right) {
 std::istream& operator>>(std::istream& in, Rational& rational) {
   std::string input;
   in >> input;
-  size_t cursor = 0;
-  for (; cursor < input.size() && input[cursor] != '/'; cursor++) {
-  }
-  if (input[cursor] == '/') {
+  size_t cursor = input.find('/');
+  if (cursor != std::string::npos) {
     rational = Rational(stoll(input.substr(0, cursor)), stoll(input.substr(cursor + 1)));
   } else {
     rational = Rational(stoll(input));
