@@ -1,0 +1,6 @@
+*
+!.gitignore
+!range.h
+!range_public_test.cpp
+!Makefile
+!readme.md
