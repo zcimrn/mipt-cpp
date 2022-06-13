@@ -1,0 +1,6 @@
+*
+!.gitignore
+!vector.h
+!vector_public_test.cpp
+!Makefile
+!readme.md
